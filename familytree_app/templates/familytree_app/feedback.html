@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container custom-content">
+    <h2>Feedback</h2>
+    <form method="post">
+        {% csrf_token %}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td><label for="{{ form.msg.id_for_label }}">સંદેશ:</label></td>
+                    <td><textarea name="{{ form.msg.name }}" rows="4" cols="50" class="form-control" required>{{ form.msg.value|default:"" }}</textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="{{ form.mobile.id_for_label }}">મોબાઇલ નં:</label></td>
+                    <td><input type="number" name="{{ form.mobile.name }}" class="form-control" required></td>
+                </tr>
+                <tr>
+                    <td><label for="{{ form.surname.id_for_label }}">અટક:</label></td>
+                    <td>{{ form.surname }}</td>
+                </tr>
+                <tr>
+                    <td><label for="{{ form.name.id_for_label }}">નામ:</label></td>
+                    <td>{{ form.name }}</td>
+                </tr>
+                <tr>
+                    <td><label for="{{ form.city.id_for_label }}">City:</label></td>
+                    <td>{{ form.city }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+    </form>
+</div>
+{% endblock %}

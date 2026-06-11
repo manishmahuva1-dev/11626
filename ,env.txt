@@ -1,0 +1,7 @@
+# Django secret key
+SECRET_KEY='d6ekgsw%in#8$&)8&quym5mtch0^jibs#h*rnyceb5in9+5&yd'
+
+# Database settings
+DB_NAME='keyurjoshi$default'
+DB_USER='keyurjoshi'
+DB_PASSWORD='Keyur@125601'
