@@ -1,212 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="gu">
 <head>
+  <meta charset="utf-8">
   <title>{% block title %}રાજગોર બ્રાહ્મણ પરિવાર{% endblock %}</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#672d43">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    .container {
-      flex: 1;
-    }
-    .menu-text {
-      margin-right: 10px;
-    }
-    .action-separator {
-      margin: 0 10px;
-    }
-
-    <!-- Add this inside the <style> section in base.html -->
-@media (min-width: 769px) {
-  .search-form-mobile {
-    display: none;
-  }
-}
-
-
-
-
-  /* ... your existing styles ... */
-
-  /* Add this inside the <style> section in base.html */
-  .small-symbols {
-    font-size: 10px; /* Adjust the font size as needed */
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .small-symbols a {
-    margin-right: 10px; /* Adjust the margin as needed */
-  }
-
-
-
-
+    :root{--family-maroon:#672d43;--family-maroon-dark:#482033;--family-gold:#c79a55;--family-cream:#fffaf2;--family-ink:#352c30;--family-green:#286447;--family-line:#eadcc9;}
+    *{box-sizing:border-box}
+    html{min-height:100%;scroll-behavior:smooth}
+    body{min-height:100vh;display:flex;flex-direction:column;margin:0;color:var(--family-ink);font-family:'Noto Sans Gujarati',system-ui,-apple-system,'Segoe UI',sans-serif;background:radial-gradient(circle at 8% 5%,rgba(199,154,85,.10),transparent 24%),linear-gradient(180deg,#fffaf3 0%,#f7f1e8 100%);line-height:1.65}
+    a{color:#754054;transition:color .15s ease}
+    a:hover{color:#3f1c2d}
+    .site-header{position:relative;z-index:20;background:linear-gradient(120deg,var(--family-maroon-dark),var(--family-maroon) 62%,#86523f);box-shadow:0 5px 18px rgba(52,27,39,.18);border-bottom:3px solid var(--family-gold)}
+    .site-header:after{content:'✦  ❖  ✦  ❖  ✦';display:block;text-align:center;color:rgba(255,226,180,.42);font-size:10px;letter-spacing:9px;line-height:15px}
+    .site-navbar{max-width:1440px;margin:auto;padding:12px 20px 8px}
+    .navbar-brand{display:flex;align-items:center;gap:11px;color:#fff8ec!important;font-weight:800;font-size:19px;white-space:normal;line-height:1.35}
+    .brand-emblem{display:inline-grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border:1px solid rgba(255,225,174,.65);border-radius:50%;color:#ffe3ae;background:rgba(255,255,255,.09);font-size:22px}
+    .navbar-toggler{border:1px solid rgba(255,255,255,.45)!important;color:#fff!important;padding:6px 10px}
+    .navbar-toggler-icon{filter:brightness(0) invert(1)}
+    .navbar-nav .nav-link,.site-home-link{color:#fff4e7!important;font-size:14px;font-weight:600;padding:8px 11px!important;border-radius:8px}
+    .navbar-nav .nav-link:hover,.site-home-link:hover{background:rgba(255,255,255,.13);color:#fff!important}
+    .site-search{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:9px 0 2px 12px}
+    .site-search .form-control{width:auto;min-width:135px;max-width:205px;height:37px;border:1px solid #e6d7c7;border-radius:9px;font-size:13px;background:#fffdf9}
+    .site-search .btn{height:37px;padding:5px 13px;border-radius:9px;font-size:13px;font-weight:700}
+    .site-search .btn-outline-success{color:#fff;border-color:#d7bd8d;background:rgba(255,255,255,.08)}
+    .site-search .btn-outline-success:hover{background:#fff;color:var(--family-maroon)}
+    .site-gender-filter{margin:9px 0 2px 10px}
+    .site-gender-filter .form-control,.site-gender-filter .btn{height:37px;border-radius:9px;font-size:13px}
+    main.site-main{width:100%;max-width:1440px;margin:0 auto;padding:24px 22px 34px;flex:1 0 auto}
+    .container{max-width:1320px}
+    .card,.custom-content,.family-member-detail,.border-effect,.gallery-wrap{border-color:var(--family-line)}
+    .custom-content,.family-member-detail{background:#fffdf9;border:1px solid var(--family-line);border-radius:17px;box-shadow:0 7px 24px rgba(74,45,40,.07)}
+    h1,h2,h3,h4{color:var(--family-maroon-dark);font-weight:800;line-height:1.45}
+    h1,h2{margin-bottom:17px}
+    hr{border-top:1px solid var(--family-line)}
+    .table-responsive{border-radius:12px}
+    table{max-width:100%}
+    .table{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 14px rgba(60,40,35,.045)}
+    .table thead th,table thead th{background:#71384e;color:#fff;border-color:#8b5a6c;vertical-align:middle}
+    .table td,.table th{padding:10px 12px;vertical-align:middle;border-color:#eee4d8}
+    .table-striped tbody tr:nth-of-type(odd){background:#fff9f0}
+    .table-hover tbody tr:hover{background:#f8eee2}
+    input.form-control,select.form-control,textarea.form-control,.form-control{border:1px solid #d9cbbb;border-radius:9px;min-height:39px;box-shadow:none}
+    input.form-control:focus,select.form-control:focus,textarea.form-control:focus{border-color:#b78354;box-shadow:0 0 0 .18rem rgba(183,131,84,.14)}
+    label{font-weight:700;color:#59424a}
+    .btn{border-radius:9px;font-weight:600;transition:transform .15s ease,box-shadow .15s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(50,30,30,.10)}
+    .btn-primary{background:#5e718e;border-color:#5e718e}
+    .btn-success{background:var(--family-green);border-color:var(--family-green)}
+    .btn-info{background:#527b83;border-color:#527b83}
+    .btn-danger{background:#a3484e;border-color:#a3484e}
+    .pagination a,.pagination .current-page{display:inline-block;margin:3px;padding:6px 12px;border:1px solid #d8c4aa;border-radius:8px;background:#fff;color:var(--family-maroon);text-decoration:none}
+    .pagination .current-page{background:var(--family-maroon);color:#fff;border-color:var(--family-maroon)}
+    .tree{max-width:100%;padding:10px;background:#fffdf9;border:1px solid var(--family-line);border-radius:14px}
+    .tree li a{background:#fffdf9;border-color:#c9ad8c;border-radius:9px;padding:8px 11px;font-size:12px;box-shadow:0 2px 7px rgba(50,30,30,.06)}
+    .tree li a:hover{background:#f7ead8;color:var(--family-maroon-dark);border-color:var(--family-gold)}
+    .site-footer{margin-top:auto;padding:23px 16px 17px;text-align:center;color:#f8eadc;background:linear-gradient(120deg,#482033,#672d43 65%,#754b3e);border-top:3px solid var(--family-gold);font-size:13px;line-height:1.9}
+    .site-footer .footer-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 20px;margin-bottom:8px;color:#ffe3b1;font-weight:800;font-size:14px}
+    .site-footer a{color:#ffe1a8;text-decoration:underline}
+    .site-footer p{margin:8px 0 0}
+    .site-footer .auth-link{display:inline-block;margin-top:7px;color:#ffe4b6;text-decoration:none;font-size:18px}
+    .action-separator{margin:0 6px;color:#caa77c}
+    .small-symbols{display:inline-flex;justify-content:center}
+    @media(max-width:991.98px){.site-search{margin:10px 0}.site-search .form-control{flex:1 1 150px;max-width:none}.site-gender-filter{margin:8px 0}.site-navbar{padding:10px 14px}.navbar-brand{font-size:16px}}
+    @media(max-width:767.98px){main.site-main{padding:15px 10px 24px}.site-header:after{letter-spacing:5px}.site-search{display:grid;grid-template-columns:1fr 1fr;gap:7px}.site-search .form-control{width:100%;min-width:0;max-width:none}.site-search input[name='search']{grid-column:1/-1}.site-search button{width:100%}.site-gender-filter{display:flex;gap:7px}.site-gender-filter select{flex:1;min-width:0}.site-footer{padding:19px 12px;font-size:12px}.table{font-size:13px}.table td,.table th{padding:8px}.custom-content,.family-member-detail{padding:14px!important}}
   </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'familytree_app:home' %}">Home</a>
-  <span class="action-separator"></span>
-  {% if user.is_authenticated and user.is_staff or user.username|slice:":6" == 'add888' or user.username|slice:":7" == 'edit444'%}
-  <a class="navbar-brand" href="{% url 'familytree_app:family_member_list' %}">List</a>
-  {% endif %}
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    Menu
-  </button>
+<header class="site-header">
+<nav class="navbar navbar-expand-lg site-navbar">
+  <a class="navbar-brand" href="{% url 'familytree_app:home' %}"><span class="brand-emblem">❖</span><span>રાજગોર બ્રાહ્મણ પરિવાર<br><small style="font-size:11px;font-weight:500;color:#f2d9c3">ડિજિટલ પરિવાર ડાયરી</small></span></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="મેનુ ખોલો"><span class="navbar-toggler-icon"></span><span class="ml-1 text-white">Menu</span></button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"><a class="nav-link" href="{% url 'familytree_app:home' %}">🏠 Home</a></li>
+      {% if user.is_authenticated and user.is_staff or user.username|slice:":6" == 'add888' or user.username|slice:":7" == 'edit444' %}
+      <li class="nav-item"><a class="nav-link" href="{% url 'familytree_app:family_member_list' %}">📋 List</a></li>
+      {% endif %}
       {% if user.is_authenticated and user.is_staff %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'familytree_app:view_all_roots' %}">Root Members</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'familytree_app:view_all_leaves' %}">Leaves</a>
-      </li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'familytree_app:view_all_roots' %}">Root Members</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'familytree_app:view_all_leaves' %}">Leaves</a></li>
       {% endif %}
       {% if user.is_superuser or user.username|slice:":6" == 'add888' %}
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'familytree_app:family_member_create' %}">Add Root</a>
-      </li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'familytree_app:family_member_create' %}">➕ Add Root</a></li>
       {% endif %}
     </ul>
-
-<form class="form-inline mt-3" method="GET" action="{% url 'familytree_app:search_by_name' %}">
-  <input class="form-control mr-sm-2" type="search" placeholder="Search by ID/name/add" name="search">
-
-
-
-
-    <!-- Add the surname combo box19-1-24 -->
-    <select class="form-control mr-sm-2" name="selected_surname">
-        <option value="" selected disabled>All અટક</option>
-        {% for surname in all_surnames %}
-            <option value="{{ surname }}">{{ surname }}</option>
-        {% endfor %}
-    </select>
-
-
-
-
-
-
-  <select class="form-control mr-sm-2" name="selected_city">
-    <option value="" selected disabled>બધા ગામો</option>
-    {% for city in cities %}
-      <option value="{{ city.id }}">{{ city.name }}</option>
-    {% endfor %}
-  </select>
- {% if user.is_authenticated and user.is_staff and user.is_admin %}
-  <select class="form-control mr-sm-2" name="selected_family_identification">
-    <option value="" selected disabled>બધા ગૌત્ર</option>
-    {% for family_id in family_identifications %}
-      <option value="{{ family_id.id }}">{{ family_id.name }}</option>
-    {% endfor %}
-  </select>
-  {% endif %}
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-</form>
-
-
-
-
-
-
-
-   {% if user.is_authenticated and user.is_staff %}
-    <form class "form-inline mt-3" method="GET" action="{% url 'familytree_app:filter_by_gender' %}">
-      <select class="form-control mr-sm-2" name="selected_gender">
-        <option value="" selected disabled>Filter by Gender</option>
-        <option value="M">Male</option>
-        <option value="F">Female</option>
-      </select>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Apply Filter</button>
+    <form class="site-search" method="GET" action="{% url 'familytree_app:search_by_name' %}">
+      <input class="form-control" type="search" placeholder="નામ / ID શોધો" name="search" aria-label="નામ અથવા ID શોધો">
+      <select class="form-control" name="selected_surname" aria-label="અટક પસંદ કરો"><option value="" selected>બધી અટક</option>{% for surname in all_surnames %}<option value="{{ surname }}">{{ surname }}</option>{% endfor %}</select>
+      <select class="form-control" name="selected_city" aria-label="ગામ પસંદ કરો"><option value="" selected>બધા ગામો</option>{% for city in cities %}<option value="{{ city.id }}">{{ city.name }}</option>{% endfor %}</select>
+      {% if user.is_authenticated and user.is_staff and user.is_admin %}<select class="form-control" name="selected_family_identification" aria-label="ગોત્ર પસંદ કરો"><option value="" selected>બધા ગૌત્ર</option>{% for family_id in family_identifications %}<option value="{{ family_id.id }}">{{ family_id.name }}</option>{% endfor %}</select>{% endif %}
+      <button class="btn btn-outline-success" type="submit">શોધો</button>
     </form>
+    {% if user.is_authenticated and user.is_staff %}
+    <form class="site-gender-filter" method="GET" action="{% url 'familytree_app:filter_by_gender' %}"><select class="form-control" name="selected_gender"><option value="" selected disabled>Gender</option><option value="M">Male</option><option value="F">Female</option></select><button class="btn btn-outline-success" type="submit">Apply</button></form>
     {% endif %}
-
-
-
-
-
-
-
-
   </div>
 </nav>
-<div class="container">
-  {% block content %}
-  {% endblock %}
-</div>
-<footer class="footer mt-auto py-3 bg-light" style="display: flex; flex-direction: column; align-items: center;">
-  <div style="display: flex; flex-direction: column; align-items: center;">
-    Total Members: {{ total_family_members }} | Males: {{ total_males }} | Females: {{ total_females }}<br>
-પ્રોગ્રામર: મનીષભાઈ ભાસ્કરભાઇ જોષી, મહુવા,  સંપર્ક: +91-9978136555 (WhatsApp)
-
-
-
-
-    
-<br>
-માહિતી મુખ્ય આધાર: સ્વ.શ્રી દેવશંકરભાઇ પંડ્યા(મોટા ભુદેવ) નાં સંકલ્પ તથા શ્રી તુષારભાઇ જોષી અને ભૂદેવ મિત્ર મંડળની મહેનત દ્વારા વિતરણ કરેલ જ્ઞાતિસેતુ ગ્રંથ.
-<br>
-
-
-
-<p>
-    &copy; 2024 Joshispices. All rights reserved. |
-    <a href="https://joshispices.com">Visit www.joshispices.com</a>
-  </p>
-    
-
-    
-  </div>
-  <div>
-    {% if user.is_authenticated %}
-      <a class="small-symbols" href="{% url 'familytree_app:logout' %}?next={% url 'familytree_app:home' %}">🚪</a>
-    {% else %}
-      <a class="small-symbols" href="{% url 'familytree_app:login' %}?next={% url 'familytree_app:home' %}">🔒</a>
-    {% endif %}
-  </div>
+</header>
+<main class="site-main">
+  {% if messages %}<div class="container">{% for message in messages %}<div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>{% endfor %}</div>{% endif %}
+  <div class="container">{% block content %}{% endblock %}</div>
+</main>
+<footer class="site-footer">
+  <div class="footer-stats"><span>કુલ સભ્યો: {{ total_family_members }}</span><span>પુરુષ: {{ total_males }}</span><span>મહિલા: {{ total_females }}</span></div>
+  <div>પ્રોગ્રામર: મનીષભાઈ ભાસ્કરભાઇ જોષી, મહુવા · સંપર્ક: +91-9978136555 (WhatsApp)</div>
+  <div>માહિતીનો મુખ્ય આધાર: સ્વ.શ્રી દેવશંકરભાઇ પંડ્યા (મોટા ભુદેવ)નાં સંકલ્પ તથા શ્રી તુષારભાઇ જોષી અને ભૂદેવ મિત્ર મંડળની મહેનત દ્વારા વિતરણ કરેલ જ્ઞાતિસેતુ ગ્રંથ.</div>
+  <p>&copy; 2024 Rajgor Brahmin Family Diary · <a href="https://joshispices.com" target="_blank" rel="noopener noreferrer">Visit www.joshispices.com</a></p>
+  {% if user.is_authenticated %}<a class="auth-link" href="{% url 'familytree_app:logout' %}?next={% url 'familytree_app:home' %}" aria-label="Logout" title="Logout">🚪</a>{% else %}<a class="auth-link" href="{% url 'familytree_app:login' %}?next={% url 'familytree_app:home' %}" aria-label="Login" title="Login">🔒</a>{% endif %}
 </footer>
-
-
-
-
-
-
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const searchFormMobile = document.querySelector('.search-form-mobile');
-    const navbarToggle = document.querySelector('.navbar-toggler');
-
-    navbarToggle.addEventListener('click', function () {
-        if (window.innerWidth <= 768) {
-            searchFormMobile.style.display = searchFormMobile.style.display === 'none' ? 'block' : 'none';
-        }
-    });
-
-    window.addEventListener('resize', function () {
-        if (window.innerWidth > 768) {
-            searchFormMobile.style.display = 'block';
-        }
-    });
-});
-</script>
-
-
-
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
