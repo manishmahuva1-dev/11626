@@ -1,169 +1,265 @@
 {% extends 'base.html' %}
 
+{% block title %}રાજગોર બ્રાહ્મણ પરિવાર | ડિજિટલ પરિવાર ડાયરી{% endblock %}
+
 {% block content %}
 <style>
-    /* Add custom styles for your content here */
-    .custom-content {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        margin-top: 5px;
-    }
-
-    h2 {
-        font-size: 24px;
-        color: #333;
-        text-align: center;
-    }
-
-    ul {
-        list-style-type: disc;
-        padding-left: 20px;
-    }
-
-    li {
-        font-size: 16px;
-        color: #555;
-        margin-bottom: 10px;
-        text-align: justify;
-    }
-
-    /* Define the max-width and max-height for images, making them responsive */
-    .image-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px; /* Adjust the gap as needed */
-    }
-
-
-
-
-
-
-    .image-container img {
-        max-width: 100%; /* Set the maximum width to the container width */
-        max-height: 150px; /* Set the maximum height for PC */
-        width: auto;
-        height: auto;
-        border: 2px solid #555; /* Border style */
-        border-radius: 10px; /* Border radius for a decorative look */
-    }
-
-    /* Responsive styles for smaller screens (mobile) */
-    @media (max-width: 768px) {
-        h2 {
-            font-size: 20px;
-        }
-
-        li {
-            font-size: 14px;
-        }
-
-        /* Add your search form here for mobile devices */
-        .search-form-mobile {
-            margin: 5px 0;
-            text-align: center;
-        }
-
-        /* Adjust the max-width and max-height for mobile */
-        .image-container img {
-            max-width: 100px; /* Set the maximum width for mobile */
-            max-height: 100px; /* Set the maximum height for mobile */
-        }
-    }
-
-    /* Hide the search form on larger screens (computers) */
-    @media (min-width: 769px) {
-        .search-form-mobile {
-            display: none;
-        }
-    }
-
-    .action-separator {
-        margin: 0 10px; /* Adjust the margin as needed to create the desired spacing */
-    }
+  /* Homepage-only styling. Existing Django routes and data bindings are preserved. */
+  .family-home {
+    --fh-maroon: #713247;
+    --fh-maroon-dark: #4d2032;
+    --fh-gold: #c58a35;
+    --fh-green: #286447;
+    --fh-cream: #fffaf1;
+    --fh-ink: #342b2d;
+    color: var(--fh-ink);
+    padding: 18px 0 32px;
+  }
+  .family-home * { box-sizing: border-box; }
+  .family-home .home-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 34px 24px 30px;
+    border-radius: 22px;
+    color: #fff;
+    text-align: center;
+    background: radial-gradient(circle at 12% 15%, rgba(255,255,255,.14), transparent 25%),
+                radial-gradient(circle at 88% 85%, rgba(255,220,160,.18), transparent 27%),
+                linear-gradient(130deg, var(--fh-maroon-dark), var(--fh-maroon) 58%, #89513d);
+    box-shadow: 0 12px 30px rgba(77,32,50,.18);
+  }
+  .family-home .home-hero:before,
+  .family-home .home-hero:after {
+    content: "✦  ❖  ✦";
+    position: absolute;
+    color: rgba(255,226,174,.38);
+    font-size: 23px;
+    letter-spacing: 12px;
+    pointer-events: none;
+  }
+  .family-home .home-hero:before { top: 15px; left: 20px; }
+  .family-home .home-hero:after { right: 14px; bottom: 12px; }
+  .family-home .hero-kicker {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 6px 14px;
+    border: 1px solid rgba(255,230,190,.55);
+    border-radius: 30px;
+    color: #ffe8bd;
+    font-size: 13px;
+    letter-spacing: .4px;
+  }
+  .family-home .home-hero h1 {
+    margin: 0 auto 10px;
+    color: #fff7e9;
+    font-size: clamp(25px, 4vw, 39px);
+    font-weight: 800;
+    line-height: 1.45;
+  }
+  .family-home .hero-subtitle {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #f9e9dc;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .family-home .hero-divider {
+    width: 105px;
+    height: 3px;
+    margin: 18px auto 0;
+    border-radius: 4px;
+    background: linear-gradient(90deg, transparent, #f0c879, transparent);
+  }
+  .family-home .member-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 720px;
+    margin: 20px auto 0;
+  }
+  .family-home .stat-card {
+    padding: 12px 8px;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 13px;
+    background: rgba(255,255,255,.10);
+    backdrop-filter: blur(3px);
+  }
+  .family-home .stat-number { display:block; color:#fff; font-size:23px; font-weight:800; }
+  .family-home .stat-label { color:#f8e5d7; font-size:13px; }
+  .family-home .mobile-search-panel {
+    display: none;
+    margin: 18px 0;
+    padding: 18px;
+    border: 1px solid #ead9c4;
+    border-radius: 17px;
+    background: var(--fh-cream);
+    box-shadow: 0 5px 16px rgba(83,54,35,.06);
+  }
+  .family-home .search-note { margin: 0 0 12px; color:#59474a; font-size:14px; line-height:1.8; }
+  .family-home .search-controls { display:flex; flex-wrap:wrap; gap:8px; }
+  .family-home .search-controls input { flex:1 1 190px; min-width:0; height:44px; border-radius:10px; }
+  .family-home .search-controls button { min-height:44px; border-radius:10px; }
+  .family-home .voice-feedback { min-height:20px; margin-top:8px; color:var(--fh-green); font-size:13px; }
+  .family-home .section-heading {
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    margin:27px 0 15px; color:var(--fh-maroon-dark); text-align:center;
+    font-size:21px; font-weight:800;
+  }
+  .family-home .section-heading:before,
+  .family-home .section-heading:after { content:""; width:48px; height:1px; background:#d8b987; }
+  .family-home .message-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; }
+  .family-home .message-card {
+    display:flex; align-items:center; min-height:66px; gap:12px;
+    padding:14px 16px; border:1px solid #eadbc8; border-radius:14px;
+    color:#583144; background:#fff; text-decoration:none !important;
+    box-shadow:0 4px 13px rgba(68,44,35,.05); transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .family-home .message-card:hover { color:var(--fh-maroon-dark); transform:translateY(-2px); box-shadow:0 8px 18px rgba(68,44,35,.10); }
+  .family-home .message-icon {
+    display:grid; flex:0 0 38px; width:38px; height:38px; place-items:center;
+    border-radius:12px; color:#fff; background:linear-gradient(145deg,#b8793c,#8c4a45); font-size:18px;
+  }
+  .family-home .quick-links { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; }
+  .family-home .quick-link {
+    display:block; height:100%; padding:17px; border-radius:15px;
+    border:1px solid #e8d8c4; background:linear-gradient(145deg,#fffefa,#fff6e9);
+    color:#49373a; text-decoration:none !important; box-shadow:0 4px 13px rgba(68,44,35,.05);
+  }
+  .family-home .quick-link:hover { border-color:#c99b62; color:var(--fh-maroon-dark); }
+  .family-home .quick-link strong { display:block; margin-bottom:6px; color:var(--fh-maroon); font-size:16px; }
+  .family-home .quick-link span { display:block; font-size:13px; line-height:1.7; }
+  .family-home .gallery-wrap { padding:16px; border:1px solid #eadbc8; border-radius:17px; background:#fff; }
+  .family-home .image-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(125px,1fr)); gap:12px; }
+  .family-home .image-container img {
+    display:block; width:100%; height:145px; object-fit:cover;
+    border:3px solid #fff; border-radius:13px; box-shadow:0 3px 12px rgba(0,0,0,.14);
+  }
+  .family-home .comments-link { display:inline-block; margin-top:18px; padding:10px 19px; border-radius:25px; color:#fff !important; background:var(--fh-green); text-decoration:none !important; }
+  .family-home .comments-link:hover { background:#1e5038; }
+  @media (max-width: 768px) {
+    .family-home { padding-top:10px; }
+    .family-home .home-hero { padding:29px 15px 23px; border-radius:17px; }
+    .family-home .hero-subtitle { font-size:14px; }
+    .family-home .member-stats { gap:7px; }
+    .family-home .stat-card { padding:10px 4px; }
+    .family-home .stat-number { font-size:19px; }
+    .family-home .stat-label { font-size:11px; }
+    .family-home .mobile-search-panel { display:block; }
+    .family-home .section-heading { margin-top:23px; font-size:18px; }
+    .family-home .section-heading:before, .family-home .section-heading:after { width:24px; }
+    .family-home .message-grid, .family-home .quick-links { grid-template-columns:1fr; }
+    .family-home .image-container { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .family-home .image-container img { height:125px; }
+  }
 </style>
 
-<div class="container custom-content">
-    <div class="search-form-mobile">
-        <p style="text-align: justify; font-size: 16px;">
-            સૂચના:-  નામ થી SEARCH કરવું હોઈ તો નીચેના BOX માં ફક્ત નામ લખો (અટક કે પિતાનું નામ લખવું નય) અને પછી લીલા કલર નું બટન દબાવો.
-            દાખલા  તરીકે  MANISH અથવા MANISHBHAI.    પણ JOSHI MANISHBHAI એમ ના લખવું. બોલી ને ગોતવા માટે બ્લુ કલર નું બટન દબાવી ફક્ત નામ બોલો. (અટક અને ગામ પ્રમાણે ગોતવા માટે ઉપર મેનુ માં જાવ.)
-        </p>
-
-        <form class="form-inline" method="GET" action="{% url 'familytree_app:search_by_name' %}">
-            <input class="form-control" type="search" placeholder="Search by ID/name/address/mobile" name="search" id="search-input">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            <span class="action-separator">|</span>
-            <button id="voice-search-button" class="btn btn-primary" onclick="startSpeechRecognition()">Search by Voice</button>
-            <div id="voice-search-feedback"></div>
-        </form>
+<div class="family-home">
+  <section class="home-hero">
+    <div class="hero-kicker">પરિવાર • પરંપરા • એકતા</div>
+    <h1>સમસ્ત રાજગોર બ્રાહ્મણ જ્ઞાતિજનોની<br>ડિજિટલ ડાયરી</h1>
+    <p class="hero-subtitle">આપણા પરિવારના સભ્યો, સંબંધો અને યાદોને એકસાથે જોડતું પરિવારનું ડિજિટલ માધ્યમ.</p>
+    <div class="hero-divider"></div>
+    <div class="member-stats" aria-label="પરિવારની માહિતી">
+      <div class="stat-card"><span class="stat-number">{{ total_family_members|default:"0" }}</span><span class="stat-label">કુલ સભ્યો</span></div>
+      <div class="stat-card"><span class="stat-number">{{ total_males|default:"0" }}</span><span class="stat-label">પુરુષ સભ્યો</span></div>
+      <div class="stat-card"><span class="stat-number">{{ total_females|default:"0" }}</span><span class="stat-label">મહિલા સભ્યો</span></div>
     </div>
+  </section>
 
-    <h2><span style="color: green; font-weight: bold;">સમસ્ત રાજગોર બ્રાહ્મણ જ્ઞાતિજનોની ડિજિટલ ડાયરી.</span></h2>
+  <section class="mobile-search-panel" aria-label="નામ શોધો">
+    <p class="search-note"><strong>નામથી શોધવા માટે:</strong> નીચેના બોક્સમાં ફક્ત નામ લખો (અટક કે પિતાનું નામ નહીં). ઉદાહરણ: MANISH અથવા MANISHBHAI. બોલીને શોધવા માટે વાદળી બટન દબાવીને ફક્ત નામ બોલો.</p>
+    <form method="GET" action="{% url 'familytree_app:search_by_name' %}" id="home-search-form">
+      <div class="search-controls">
+        <input class="form-control" type="search" placeholder="નામ / ID / સરનામું / મોબાઈલ" name="search" id="search-input" aria-label="શોધવા માટે નામ લખો">
+        <button class="btn btn-success" type="submit">શોધો</button>
+        <button id="voice-search-button" class="btn btn-primary" type="button" onclick="startSpeechRecognition()">🎙 બોલીને શોધો</button>
+      </div>
+      <div id="voice-search-feedback" class="voice-feedback" aria-live="polite"></div>
+    </form>
+  </section>
 
-    <ul>
-        {% for msgkind in msgkinds %}
-        <li><a href="{% url 'familytree_app:msgkind_entries' msgkind.id %}">{{ msgkind.msgK }}</a></li>
+  <section>
+    <h2 class="section-heading">જ્ઞાતિની ઉપયોગી માહિતી</h2>
+    <div class="message-grid">
+      {% for msgkind in msgkinds %}
+        <a class="message-card" href="{% url 'familytree_app:msgkind_entries' msgkind.id %}">
+          <span class="message-icon" aria-hidden="true">✦</span>
+          <span>{{ msgkind.msgK }}</span>
+        </a>
+      {% empty %}
+        <p class="text-muted text-center">હાલમાં કોઈ માહિતી ઉપલબ્ધ નથી.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-heading">ઝડપી સેવાઓ</h2>
+    <div class="quick-links">
+      <a class="quick-link" href="{% url 'familytree_app:instructions' %}">
+        <strong>📘 જરૂરી સૂચના અને માહિતી</strong>
+        <span>ડાયરીનો ઉપયોગ અને જરૂરી માર્ગદર્શન વાંચો.</span>
+      </a>
+      <a class="quick-link" href="https://whatsform.com/ykufog" target="_blank" rel="noopener noreferrer">
+        <strong>➕ ડાયરીમાં નવું નામ ઉમેરો</strong>
+        <span>પરિવારના નવા સભ્યની માહિતી મોકલવા અહીં ક્લિક કરો.</span>
+      </a>
+      <a class="quick-link" href="https://whatsform.com/sgiclt" target="_blank" rel="noopener noreferrer">
+        <strong>✎ માહિતીમાં સુધારો કરાવો</strong>
+        <span>નામ, સરનામું, મોબાઈલ નંબર, remark અથવા મૂળ વતનમાં ફેરફાર મોકલો.</span>
+      </a>
+    </div>
+    <div class="text-center">
+      <a class="comments-link" href="{% url 'familytree_app:feedback' %}">💬 Comments / અભિપ્રાય આપો</a>
+    </div>
+  </section>
+
+  {% if photos %}
+  <section>
+    <h2 class="section-heading">પરિવારની યાદગાર તસવીરો</h2>
+    <div class="gallery-wrap">
+      <div class="image-container">
+        {% for photo in photos %}
+          <img src="{{ photo.photo_url.url }}" alt="{{ photo.description|default:'રાજગોર પરિવારની તસવીર' }}" loading="lazy">
         {% endfor %}
-    </ul>
-
-    <ul>
-        <li><a href="{% url 'familytree_app:instructions' %}">જરૂરી સૂચના અને માહિતી </a></li>
-    </ul>
-
-<ul>
-<li><a href="https://whatsform.com/ykufog" target="_blank">આ ડાયરી માં નવું નામ ઉમેરવા અહીં ક્લીક કરો </a></li>
-</ul>
-
-<ul>
-<li><a href="https://whatsform.com/sgiclt" target="_blank">આ ડાયરી માં નામ, સરનામું, મોબાઈલ નંબર, remark, મૂળ વતન માં ફેરફાર કરવા અહીં ક્લીક કરો </a></li>
-</ul>
-
-
-
-<li><a href="{% url 'familytree_app:feedback' %}">Comments</a></li>
-
-
-
-<div class="image-container">
-    {% for photo in photos %}
-        <!-- Set a class for styling purposes and apply the max-width to the images -->
-        <img class="responsive-image" src="{{ photo.photo_url.url }}" alt="{{ photo.description }}">
-    {% endfor %}
-</div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
 </div>
 
 <script>
 function startSpeechRecognition() {
-    const voiceSearchButton = document.getElementById("voice-search-button");
-    const searchInput = document.getElementById("search-input");
-    const voiceSearchFeedback = document.getElementById("voice-search-feedback");
+  const voiceSearchButton = document.getElementById('voice-search-button');
+  const searchInput = document.getElementById('search-input');
+  const voiceSearchFeedback = document.getElementById('voice-search-feedback');
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-    if ('webkitSpeechRecognition' in window) {
-        const recognition = new webkitSpeechRecognition();
+  if (!SpeechRecognition) {
+    voiceSearchFeedback.textContent = 'આ બ્રાઉઝરમાં બોલીને શોધવાની સુવિધા ઉપલબ્ધ નથી. કૃપા કરીને નામ લખીને શોધો.';
+    return;
+  }
 
-        recognition.onresult = function(event) {
-            const result = event.results[0][0].transcript;
-            searchInput.value = result;
-            voiceSearchFeedback.innerText = `You said: ${result}`;
-            searchInput.form.submit();
-        };
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'gu-IN';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
 
-        recognition.onend = function() {
-            voiceSearchButton.disabled = false;
-            voiceSearchFeedback.innerText = "ફરી વખત બટન દબાવો અને પછી બોલો.";
-        };
+  recognition.onresult = function(event) {
+    const result = event.results[0][0].transcript;
+    searchInput.value = result;
+    voiceSearchFeedback.textContent = 'તમે કહ્યું: ' + result;
+    document.getElementById('home-search-form').submit();
+  };
+  recognition.onerror = function() {
+    voiceSearchFeedback.textContent = 'અવાજ ઓળખી શકાયો નથી. ફરી પ્રયાસ કરો અથવા નામ લખો.';
+  };
+  recognition.onend = function() {
+    voiceSearchButton.disabled = false;
+  };
 
-        recognition.start();
-        voiceSearchButton.disabled = true;
-        voiceSearchFeedback.innerText = "Listening... બોલો !";
-    } else {
-        voiceSearchFeedback.innerText = "Speech recognition is not supported in this browser.";
-    }
+  voiceSearchButton.disabled = true;
+  voiceSearchFeedback.textContent = 'સાંભળી રહ્યા છીએ... હવે નામ બોલો.';
+  recognition.start();
 }
 </script>
-
 {% endblock %}
